@@ -5,6 +5,7 @@ const lightBackground = Color.fromRGBO(255, 255, 255, 1);
 const lightFont = Color.fromRGBO(136, 178, 176, 1);
 const lightFontEnabled = Color.fromRGBO(248, 251, 255, 1);
 const lightIcon = Color.fromRGBO(1, 203, 67, 1);
+const lightFontDefault = Color.fromRGBO(114, 118, 119, 1);
 
 const darkGreen = Color.fromRGBO(35, 45, 54, 1);
 const darkBackground = Color.fromRGBO(16, 29, 37, 1);

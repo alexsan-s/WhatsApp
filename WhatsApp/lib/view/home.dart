@@ -1,25 +1,18 @@
+import 'package:WhatsApp/controller/setting.dart';
+import 'package:WhatsApp/model/build.dart';
 import 'package:WhatsApp/model/colors.dart';
-import 'package:WhatsApp/view/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/rendering.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-setting() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  if (prefs.containsKey('isLight')) {
-    return prefs.getBool('isLight');
-  } else {
-    return true;
-  }
-}
-
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return FutureBuilder(
       future: setting(),
       builder: (context, snapshot) {
@@ -29,7 +22,7 @@ class _HomeState extends State<Home> {
           return Scaffold(
             appBar: buildAppBar(snapshot),
             body: Container(
-              height: double.infinity,
+              height: size.height,
               color: snapshot.data ? lightBackground : darkBackground,
               child: Column(
                 children: [
@@ -40,7 +33,7 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         buildExpandedIcon(snapshot),
-                        buildExpandedText(snapshot, "CHARTS", true),
+                        buildExpandedText(snapshot, "CHATS", true),
                         buildExpandedText(snapshot, "STATUS", false),
                         buildExpandedText(snapshot, "CALLS", false),
                       ],
@@ -69,45 +62,36 @@ class _HomeState extends State<Home> {
           color: snapshot.data ? lightFontEnabled : darkFont,
         ),
         PopupMenuButton(
-            itemBuilder: (BuildContext context) {
-              return list.map((String list) {
-                return PopupMenuItem(
-                    child: InkWell(
-                  onTap: () => Navigator.pushNamed(context, '/settings',
-                      arguments: Settings(
-                        snapshot: snapshot,
-                      )),
-                  child: Text(
-                    list,
-                    style: TextStyle(color: snapshot.data ? Colors.black : lightFontEnabled),
-                  ),
-                ));
-              }).toList();
-            },
-            color: snapshot.data ? lightBackground : darkBackground)
+            itemBuilder: (context) => [
+                  PopupMenuItem(
+                      child: InkWell(
+                        child: Text("New Group",
+                            style:
+                                TextStyle(color: snapshot.data ? Colors.black : lightFontEnabled)),
+                      ),
+                      value: 1),
+                  PopupMenuItem(
+                      child: InkWell(
+                        child: Text("Starred Messages",
+                            style:
+                                TextStyle(color: snapshot.data ? Colors.black : lightFontEnabled)),
+                      ),
+                      value: 2),
+                  PopupMenuItem(
+                      child: InkWell(
+                        onTap: () {
+                          print('oi');
+                        },
+                        child: Text("Settings",
+                            style:
+                                TextStyle(color: snapshot.data ? Colors.black : lightFontEnabled)),
+                      ),
+                      value: 3),
+                ],
+            color: snapshot.data ? lightGreen : darkGreen)
       ],
       elevation: 0,
     );
-  }
-
-  Scaffold buildSplash() {
-    return Scaffold(
-        backgroundColor: colorSplash,
-        body: Column(children: [
-          Flexible(
-              flex: 10,
-              child: Center(
-                  child: Image(
-                image: AssetImage('assets/logo.png'),
-                height: 70,
-              ))),
-          Text('from', style: TextStyle(color: Color.fromRGBO(78, 81, 86, 1), fontSize: 20)),
-          Text('Alexsander da Silva',
-              style: TextStyle(color: Color.fromRGBO(205, 208, 215, 1), fontSize: 22)),
-          Spacer(
-            flex: 1,
-          )
-        ]));
   }
 
   BoxDecoration buildBoxDecorationEnabled(AsyncSnapshot snapshot) {
