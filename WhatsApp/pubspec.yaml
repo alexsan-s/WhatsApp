@@ -19,6 +19,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  modal_bottom_sheet: ^1.0.0+1
 
 flutter:
   uses-material-design: true

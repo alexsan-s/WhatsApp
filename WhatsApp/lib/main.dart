@@ -12,17 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/home',
-        routes: {
-          '/home': (context) => Home(),
-          '/settings': (context) => Settings(),
-          '/settingChats': (context) => SettingChats(),
-        });
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: Home(),
+      routes: {
+        '/settings': (context) => Settings(),
+        '/settingChats': (context) => SettingChats(),
+      },
+    );
   }
 }
